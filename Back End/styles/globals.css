@@ -1,0 +1,144 @@
+body,html,#__next{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+#__next{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.password_wrapper{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+
+.cat-wrapper{
+    background-color: gray;
+    display:flex;
+    justify-content:space-evenly;
+    width:100%;
+    margin:3rem 0 1rem 0;
+    border:0;
+    padding: 1rem 0;
+}
+
+.cat_del{
+    background-color: red !important;
+    color: white !important;
+    border: 1px solid rgb(87, 87, 87);
+    border-radius: 2px;
+}
+
+.hidden{
+    visibility: hidden !important;
+    position: absolute !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+}
+
+.vis-hidden{
+    visibility: hidden;
+}
+
+.disabled *{
+ pointer-events: none;
+}
+
+br{
+    user-select: none;
+}
+
+
+.temp-br{
+    display: none;
+    margin-right: 3rem;
+}
+
+.category-all{
+    background-color: black;
+    color:lime;
+}
+
+#category-select option{
+    background-color: white;
+    color:black;
+}
+
+.item-wrapper label{
+    margin: 3rem 0.5rem 0 0;
+    display:inline-block;
+}
+
+.item-wrapper input{
+    width:5rem;
+}
+
+#changer_wrapper{
+    margin:0;
+    padding:0;
+    border:none;
+    width: 90%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#changer{
+    width:100%;
+    height: 95%;
+    overflow: scroll;
+    resize: none;
+    padding: 0.2rem;
+    background-color: #333333;
+    color:white;
+    border-radius: 0.3rem;
+    color:lime;
+}
+
+#changer::selection {
+    background-color: white;
+    color:black;
+}
+
+#changer:disabled {
+    color:rgba(255, 255, 255, 0.1);
+    overflow: hidden;    
+}
+
+#changer_wrapper:disabled input[type=button]{
+    opacity:0.4
+}
+
+
+@media (max-width: 700px) {
+    .normal-wrapper{
+        width: 100% !important;
+    }
+    
+    .temp-br{
+        display:block;
+    }
+
+    .cat-wrapper{
+
+        flex-direction: column;
+    }
+
+    .breaker{
+        display:flex;
+        flex-direction:row-reverse;
+        margin-top: 3rem;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,126 @@
+<%-include('../_common/_common_style.ejs')%>
+
+<style>
+    #content {
+        z-index: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    #enlist-title-wrapper{
+        width: 100%;
+        background-color: #36b0cf;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 0.5rem #3183bd solid;
+    }
+
+    .enlist-title{
+        font-weight: bold;
+        color:white;
+        text-align:center;
+        word-break:keep-all;
+        display: -moz-box; 
+        -moz-line-clamp: 3;
+        -moz-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin: 3rem 1rem;
+    }
+
+    #super_wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background-image: none; */
+    }
+
+    .grided{
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto;
+        row-gap:2rem;
+        column-gap:2rem;
+    }
+
+
+    input{
+        height:1.1rem;
+        border: 1px solid rgb(175 175 175);
+        padding: 0.5rem;
+        justify-self: end;
+    }
+
+    input[type="number"]{
+        width: 5.5rem;
+    }
+
+    input[type="submit"]{
+        height:auto;
+        display: block;
+        color: white;
+        background-color: #3183bd;
+        border-radius: 0.3rem;
+        padding: 0.5rem 0.5rem;
+        margin:3rem auto;
+        width: 9rem;
+        cursor: pointer;
+
+    }
+
+    hr, br{
+        display: block;
+            content: "";
+            margin-bottom: 2rem;
+    }
+
+    form a{
+        text-decoration: none;
+        color:#3794d6;
+    }
+
+    form a:hover{
+        color:#1c5781;
+    }
+
+    #der{
+        width: 6rem;
+        border-radius: 0.2rem;
+        cursor: pointer;
+        height:2.5rem;
+    }
+
+    textarea{
+        height:10rem;
+        padding:1rem;
+        max-width:26rem;
+        width:90%;
+        resize: none;
+        display: block;
+        margin: 1rem auto;
+    }
+
+    @media (max-width:880px) {
+
+        .enlist-title{
+            font-weight: bold;
+            color:white;
+
+            font-size: larger;
+
+        }
+
+        #pick_wrapper{
+            padding: 0 3rem;
+            width:100%;
+        }
+
+        input{
+            width:9rem;
+        }
+    }
+
+</style>

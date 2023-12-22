@@ -1,0 +1,52 @@
+<script>
+
+    function check_select(e){
+        var inp=document.querySelector('input[name="descrip"]')
+        if(e.target.value=='None'){
+            inp.value='';
+            inp.setAttribute("disabled","true")
+        }
+        else
+            inp.removeAttribute("disabled")
+        
+    }
+    
+    function send(){
+
+        let DATA={}
+        try{
+
+            var form_dat=new FormData(document.querySelector('form'));
+
+            for (let key of form_dat.keys()){
+                DATA[key]=form_dat.get(key);
+            }
+
+            DATA['descrip']=[document.querySelector('#der').value,document.querySelector('input[name="descrip"]').value]
+
+            document.querySelector('#form-field').setAttribute('disabled','disabled');
+            document.querySelector('#sendbtn').value="Sending (may take a minute)"
+
+
+            fetch('<%= process.env.BACKEND %>/submit',{
+                method: 'POST',
+                body:JSON.stringify(DATA)
+                }
+            )
+            .then(d=>d.json())
+            .then((data)=>{
+                console.log(data);
+                if(data.valid==1){
+                    document.querySelector('#sendbtn').value="Sent Successfully!"
+                }
+                else
+                    document.querySelector('#sendbtn').value="Error! Try again later"
+
+            })
+
+        }catch(err){ 
+            console.log(err)
+        }
+    }
+
+</script>

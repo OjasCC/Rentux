@@ -1,0 +1,64 @@
+<script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    fetch(`<%= process.env.BACKEND %>/front`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"category":urlParams.get('v')})
+  })
+  .then(d=>d.json()).then((data)=>{
+        // console.log(data);
+        if(data.valid==0)
+         window.location.href='/404';
+
+        document.querySelector('.category-title').innerText=urlParams.get('v');
+
+        let pick_str='';
+        document.querySelector('.loader-icon').remove();
+
+        for(let key in data){
+            // console.log(key,data[key].price.monthly );
+            if(data[key].price.weekly_sale==0&&data[key].price.monthly_sale==0)
+                pick_str+=`<div class='product' ${data[key].outofstock==1?'style="opacity:0.3;pointer-events:none;"':''}>
+                <img src="${data[key].img_link}">
+                <div class='info'>
+                    <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data[key].title}" from Rentux'>${data[key].title}</a>
+                    ${ data[key].info==''?'':`<span class='sub-info'>${data[key].info}</span>`}
+                    ${ data[key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data[key].originalcost}</span>`}
+                    <span class='sub-price'>
+                    ${ data[key].price.monthly > 0?`<div class='monthly'> ${data[key].price.monthly} / month</div>`:''}
+                    ${ data[key].price.weekly > 0?`<div class='weekly'> ${data[key].price.weekly} / week</div>`:''}
+                    </span>
+                    <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data[key].title}" from Rentux'>${data[key].outofstock==1?'Out of stock':'Book Now'}</a>
+                </div>         
+                </div>`
+            else
+                pick_str+=`<div class='product' ${data[key].outofstock==1?'style="opacity:0.3;pointer-events:none;"':''}>
+                <img src="${data[key].img_link}">
+                <div class='info'>
+
+                    <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data[key].title}" from Rentux'>${data[key].title}</a>
+                    ${ data[key].info==''?'':`<span class='sub-info'>${data[key].info}</span>`}
+                    ${ data[key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data[key].originalcost}</span>`}
+
+                    <span class='sub-price'>
+                    ${data[key].price.monthly_sale > data[key].price.monthly > 0 ?`<s> ₹${data[key].price.monthly_sale} </s> <div class='monthly' style="display:inline;margin-left:0.3rem">${data[key].price.monthly} / month</div><span class="discount">${Math.floor(100-data[key].price.monthly/data[key].price.monthly_sale *100)}%&#160;off</span><br>`:''} 
+                    ${data[key].price.weekly_sale > data[key].price.weekly > 0 ?`<s> ₹${data[key].price.weekly_sale} </s> <div class='weekly' style="display:inline;margin-left:0.3rem">${data[key].price.weekly} / week</div><span class="discount">${Math.floor(100-data[key].price.weekly/data[key].price.weekly_sale *100)}%&#160;off</span>`:''}
+                    </span>
+                    <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data[key].title}" from Rentux'>${data[key].outofstock==1?'Out of stock':'Book Now'}</a>
+                </div>         
+                </div>`
+        }
+
+        document.querySelector('#pick_wrapper').innerHTML+=pick_str;
+  })
+  .catch(()=>{
+    document.querySelector('.loader-icon').remove();
+    let err=document.createElement('div');
+    err.id='err';
+    err.innerText ="Unable to connect to server, Try again later : /";
+    document.querySelector('#pick_wrapper').appendChild(err);
+  })
+</script>

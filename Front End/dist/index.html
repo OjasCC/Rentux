@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentux - Renting is the new buying</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: Sans-serif;
+  overflow-x: hidden;
+}
+
+#rest {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#content {
+  z-index: 0;
+  grid-row: 1;
+  grid-column: 1;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.loader-icon {
+  margin: auto;
+  border: 7px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+#super_wrapper{
+  width:100%;
+  background-image: linear-gradient(to bottom,#e4e3e3,#f8f8f8);
+}
+
+.title{
+  font-size: x-large;
+  font-weight:700;
+  text-align:center;
+  word-break:keep-all;
+  display: -moz-box; 
+  -moz-line-clamp: 3;
+  -moz-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-decoration: none;
+  color:#3183bd;
+}
+
+.info{
+  flex:1;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  overflow-wrap: break-word; /* breaks long words */
+  min-width: 0; /* necessary for flexbox */
+  text-decoration: none;
+  padding:0 1rem;
+}
+
+s{
+  opacity: 0.3;
+  text-decoration-thickness: 2px;
+}
+
+.discount{
+  font-size: small;
+  background-color: #3183bd;
+  color:white;
+  padding: 0.1rem 0.3rem;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+}
+
+.product_active{
+  min-height: 15rem;
+  height:auto !important;
+  position: relative !important;
+  visibility: visible !important;
+  overflow:visible !important;
+  z-index: 1 !important;
+}
+
+.product_wrapper {
+  background-color: white;
+  margin:0 auto;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding:3% 0 5rem 0;
+
+  height:0;
+  position: absolute;
+  visibility: hidden;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.product {
+  margin-top: 2rem;
+  width: 40%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+  'image info';
+  grid-template-columns: 50% 50%;
+  min-height: 15rem;
+
+}
+
+.product img {
+  width:100%;
+  margin: auto 0;
+  grid-area: image;
+}
+
+.product .info{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  padding:0 10%;
+}
+
+.product .title{
+  border-bottom:1rem solid #0000;
+  box-shadow:0 1px 0 #dadfe3; /* your border */
+}
+
+.product .title:hover{
+  color:#36b0cf;
+}
+
+.sub-info{
+  font-size:medium;
+  /* word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
+  overflow: hidden;
+  white-space: pre-line;
+  text-align: center;
+  /* margin: 1rem 0; */
+
+}
+
+.sub-price{
+  font-size: large;
+  font-weight: bold;
+  margin:0 auto;
+  text-align: center;
+  word-wrap:normal;
+}
+
+.sub-price div{
+    word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sub-price .monthly::before{
+  content: '₹';
+}
+
+.sub-price .weekly::before{
+  content: '₹';
+} 
+
+.product-renting{
+  border:none;
+  background-image: linear-gradient(to bottom right,#3183bd,#92caf1) !important;  
+  color:white;
+  padding:5% 2%;
+  width:7rem;
+  text-align: center;
+  font-weight: bold;
+  border-radius:5rem;
+  text-decoration: none;
+  user-select: none;
+  margin: 0 auto 0.3rem auto;
+  cursor:pointer;
+}
+
+.product-renting:hover{
+opacity: 0.7;
+}
+
+ul{
+  margin:0 3rem;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width:1300px) {
+
+.product {
+  width: 45%;
+  font-size: small;
+}
+.product-title{
+  font-size: large;
+}
+}
+
+@media (max-width:1030px) {
+
+.product .title{
+  font-size:medium ;
+}
+
+.product_wrapper {
+  width: 100%;
+}
+}
+
+@media (max-width:880px) {
+
+.product {
+ width:90%;
+}
+
+}
+
+@media (max-width:650px) {
+
+  /* .title{
+    font-size: medium !important;
+  } */
+
+  .product {
+  width:95%;
+  }
+
+  .product .title{
+    padding-top: 0.5rem;
+  }
+
+  .info *{
+    font-size: small;
+  }
+
+  .discount{
+    display: block;
+    text-align: center;
+    margin: 3% 0 5% 0;
+    font-size: smaller;
+  }
+
+}
+
+
+</style>
+<style>
+
+#slideshow_wrapper {
+  height: 30rem;
+  width: 100%;
+  background-color: #36b0cf;
+  position: relative;
+}
+
+#slideshow {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow:hidden;
+
+  color:white;
+
+  /* CURRENT way. */
+  scroll-snap-type: x mandatory;
+}
+
+#slideshow::-webkit-scrollbar {
+  display: none;
+}
+
+#err{
+  margin: auto;
+}
+
+.item_wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  width: 45rem;
+  height: 90%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+}
+
+.item .info:hover .title{
+  color:#36b0cf !important;
+}
+
+.active_item {
+  flex: 1;
+}
+
+.item img {
+  height: 100%;
+  user-select: none;
+}
+
+.arrow_wrapper {
+  border: 0;
+  position: absolute;
+  height: 4rem;
+  width: 3rem;
+  background-color: white;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.1);
+
+}
+
+.arrow_wrapper:hover {
+  background-color: #cfcfcf;
+}
+
+.left_wrapper {
+
+  transform: translate(0, -50%) !important;
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.right_wrapper {
+  right: 0%;
+  transform: translate(0%, -50%) !important;
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+
+
+.arrow {
+  border: solid black;
+  width: 1rem;
+  height: 1rem;
+}
+
+.left {
+  border-width: 0 0 0.5rem 0.5rem;
+  transform: rotate(45deg);
+}
+
+.right {
+  border-width: 0.5rem 0.5rem 0 0;
+  transform: rotate(45deg);
+}
+
+#slideshow_counter{
+  width: 100%;
+  height: 2rem;
+  background-color: #36b0cf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter_item{
+  height: 0.5rem;
+  width: 0.5rem;
+  border: 2px solid  white;
+  border-radius: 50%;
+  margin: 0 0.5rem;
+
+}
+
+.counter_item-active {
+  background-color: white;
+}
+
+#explorer {
+  height: 3rem;
+  width: 100%;
+  background-color: #e4e3e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5rem #3183bd solid;
+}
+
+#explorer button {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  font-size: medium;
+  color: white !important;
+  background-color: #3183bd !important;
+  opacity: 0.6;
+  box-sizing: border-box;
+}
+
+#explorer button:nth-of-type(1){
+  margin-right:20%;
+}
+
+.active-explorer {
+  opacity: 1 !important;
+}
+
+#explorer button:hover {
+  border-color: #9c9c9c;
+}
+
+
+@media (max-width:1030px) {
+  .item {
+    height:80%;
+    width: 85%;
+  }
+}
+
+@media (max-width:880px) {
+  #slideshow_wrapper {
+    height: 20rem;
+  }
+
+  .item {
+    width:80%;
+  }
+
+  /* .login {
+    margin-left: 1rem;
+  } */
+
+}
+
+@media (max-width:650px) {
+
+  /* .login {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .sidebar-login {
+    position: relative;
+    visibility: visible;
+  } */
+
+  .arrow_wrapper{
+    height:100%;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    opacity: 0;
+  }
+  .arrow_wrapper:active{
+    opacity: 0.2;
+  }
+
+  .arrow_wrapper:hover{
+    background-color: rgba(0,0,0,0.25);
+  }
+
+  #slideshow_wrapper{
+    height:15rem;
+  }
+
+  #slideshow .item{
+  font-size: small;
+  }
+
+  #slideshow .renting{
+
+    width:55%;
+  }
+
+}
+
+</style>
+
+<!--https://jsfiddle.net/806knyx4/77/-->
+
+<!-- https://codesandbox.io/s/confident-water-xj6zb?file=/src/index.js -->
+
+  </head>
+  
+  <body>
+    <!-- Front-End Designed by Manas Ravindra Makde-->
+    <style>
+:root {
+  --hamline-height: 4px;
+  --ham-width: 2rem;
+  --ham-gap: 0.5rem;
+  --hamline-border: 1px;
+
+  --ham-padding: 1rem;
+
+
+  --search-radius: 0.5rem;
+  --transition-time: 0.5s;
+}
+
+
+header {
+  width: 100%;
+  height: 4rem;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+.icon_wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  margin: 0 1rem 0 0;
+}
+
+#icon {
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+}
+
+header h1 {
+  color: white;
+  margin: 0 0 0 1rem;
+}
+
+#search_wrapper {
+  height: 60%;
+  background-color: white;
+  flex: 1;
+  border-radius: var(--search-radius);
+  display: flex;
+  position: relative;
+  align-items: center;
+  /* overflow: hidden; */
+  flex-direction: row;
+}
+
+.search_wrapper_disabled {
+  opacity: 0.85;
+  transition: opacity 1s;
+}
+
+#search_back {
+  height: 100%;
+  display: inline-block;
+  border-radius: var(--search-radius);
+  padding: 0 0.7rem;
+  visibility: hidden;
+}
+
+#search_btn {
+  background-color: #3697cf;
+  height: 100%;
+  border-radius: var(--search-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  position: absolute;
+  cursor: default;
+  align-self: end;
+  right: 0;
+  transform: translate(5%, 0);
+  transition: right var(--transition-time), transform var(--transition-time);
+}
+
+.search_active {
+  transform: translate(100%, 0) !important;
+  cursor: pointer !important;
+  right: 100% !important;
+}
+
+.search_active:hover {
+  background-color: #266999 !important;
+}
+
+#search_bar {
+  border-radius: 0 var(--search-radius) var(--search-radius) 0;
+  outline: none;
+  font-size: 1rem;
+  height:100%;
+  border: none;
+  padding-left: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#search_bar:disabled {
+  background-color: white;
+}
+
+/*  DROPDOWN */
+#dropdown_category {
+  margin-left: 1rem;
+  width: 9.3rem;
+  height: 55%;
+  padding: 5px 5px 5px 20px;
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(https://img.icons8.com/color/30/000000/sort-right.png) 0% / 15% no-repeat #EEE;
+  outline: none;
+
+  background-color: transparent;
+  background-size: 13px;
+  text-overflow: ellipsis;
+  border: none;
+  color: #bebebe;
+  cursor: pointer;
+  direction: rtl;
+  text-align: left;
+}
+
+#dropdown_category:hover{
+  color:white;
+}
+
+#dropdown_category option {
+  font-size: 90%;
+  color: black;
+  direction: ltr;
+}
+
+#dropdown_category:active {
+  background: url(https://img.icons8.com/color/64/000000/sort-down.png) 0% / 15% no-repeat !important;
+  background-size: 13px !important;
+}
+
+#dropdown_category:hover {
+  cursor: pointer;
+}
+
+/*  ---   */
+
+
+.enlist {
+  text-decoration: none;
+  display: flex;
+  height: 60%;
+  color: white !important;
+  background-color: #3183bd;
+  border-radius: 0.3rem;
+  padding: 0 0.5rem;
+  margin: 0 1rem 0 1rem;
+  align-items: center;
+}
+
+.enlist:hover {
+  background-color: #266999;
+  cursor: pointer;
+}
+
+/*  HAMBURGER */
+
+#hamburger {
+  visibility: hidden;
+  position: absolute;
+  height: auto;
+  width: var(--ham-width);
+  cursor: pointer;
+  padding: var(--ham-padding);
+  padding-top: calc(var(--ham-padding) + var(--ham-gap));
+}
+
+#hamburger span {
+  margin: auto;
+  display: block;
+  position: relative;
+  height: var(--hamline-height);
+  background-color: white;
+  margin-bottom: var(--ham-gap);
+  border-radius: var(--hamline-border);
+  transition: transform 0.25s, width 0.25s ease-in-out;
+  width: var(--ham-width);
+}
+
+#hamburger span:nth-child(2) {
+  position: absolute;
+}
+
+#hamburger span:nth-child(1) {
+  top: 0;
+}
+
+#hamburger span:nth-child(4) {
+  bottom: 0;
+}
+
+.topHamline {
+  transform: translateY(calc(var(--ham-gap) + var(--hamline-height)));
+  width: 0 !important;
+  transition: transform 0.25s, width 0.25s !important;
+}
+
+.bottomHamline {
+  transform: translateY(calc(var(--ham-gap) * -1 + var(--hamline-height) * -1));
+  width: 0 !important;
+  transition: transform 0.25s, width 0.25s !important;
+}
+
+.midtopHamline {
+  transform: rotate(-45deg);
+  transition: transform 0.25s !important;
+}
+
+.midbottomHamline {
+  transform: rotate(45deg);
+  transition: transform 0.25s !important;
+}
+
+/* ---  */
+
+@media (max-width:880px) {
+  header h1,
+  .enlist,
+  #dropdown_category {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  #hamburger {
+    visibility: visible;
+    position: relative;
+  }
+
+}
+
+</style>
+<header>
+    <a class='icon_wrapper' href='/'>
+      <img id="icon" src="https://i.ibb.co/Pm4PpTn/RentuX-X.png">
+      <h1> Rentux</h1>
+    </a>
+
+    <span id="search_wrapper">
+      <div id="search_back" class="fa fa-search fa-lg"></div>
+      <div id="search_btn" class="fa fa-search fa-lg search_active" onclick="Search()"></div>
+      <input id="search_bar" type="text" placeholder="Search...">
+    </span>
+
+    <select id="dropdown_category">
+      <option hidden selected>Select Category</option>
+      <option>Casual Books</option>
+      <option>Engineering Tools</option>
+      <option>Electronic Gadgets</option>
+    </select>
+
+    <!-- <a class="login" href="/login">Log In</a> -->
+    <a class="enlist" href="/enlist">Enlist your product</a>
+
+    <div id="hamburger" onclick="toggle_menu()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+</header>
+<script>
+
+    let search_bar=document.querySelector('#search_bar');
+    let search_wrapper=document.querySelector('#search_wrapper');
+
+    function Search(){
+
+        search_bar.disabled = true;
+        document.querySelector('#search_btn').classList.remove('search_active');
+        document.querySelector('#search_wrapper').classList.add('search_wrapper_disabled');
+
+    }
+
+    document.querySelector('#dropdown_category').addEventListener('change', (e) => {
+        window.location.href=`/category?v=${e.target.value}`;
+    });
+</script>
+  
+    <div id="rest">
+      <style>
+    
+#sidebar_wrapper {
+
+grid-row: 1;
+grid-column: 1;
+position: sticky;
+top: 0;
+width: 100%;
+height: 100vh;
+z-index: 1;
+overflow-x: hidden;
+
+}
+
+.hide-sidebar_wrapper {
+transition: z-index 0s 0.3s;
+z-index: -1 !important;
+}
+
+#sidebar_back {
+
+height: 100%;
+width: 100%;
+position: absolute;
+background-color: rgba(0, 0, 0, 0.75);
+opacity: 1;
+transition: opacity 0.3s;
+overflow-x: hidden;
+
+}
+
+.hide-sidebar_back {
+opacity: 0 !important;
+pointer-events: none;
+}
+
+#sidebar {
+height: 100%;
+position: absolute;
+right: 0;
+background-color: #d4d4d4;
+display: flex;
+flex-direction: column;
+
+transform: translate(0, 0);
+transition: transform 0.3s;
+overflow-x: hidden;
+}
+
+.hide-sidebar {
+transform: translate(100%, 0) !important;
+}
+
+.sidebar-enlist {
+text-decoration: none;
+color: white;
+background-color: #3183bd;
+padding: 1rem 5rem;
+}
+
+.sidebar-enlist:hover {
+background-color: #266999;
+cursor: pointer;
+}
+
+.sidebar-dropdown_category {
+align-self: center;
+width: 100%;
+padding: 1rem 5px 1rem 20px;
+font-size: 16px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background: url(https://img.icons8.com/color/30/000000/sort-right.png) 0% / 15% no-repeat #EEE;
+
+background-color: transparent;
+background-size: 13px;
+text-overflow: ellipsis;
+border: none;
+color: black;
+cursor: pointer;
+direction: rtl;
+text-align: center;
+}
+
+.sidebar-dropdown_category option {
+font-size: 90%;
+color: black;
+direction: ltr;
+}
+
+.sidebar-dropdown_category:active {
+background: url(https://img.icons8.com/color/64/000000/sort-down.png) 0% / 15% no-repeat !important;
+background-size: 13px !important;
+}
+
+.sidebar-dropdown_category:hover {
+background-color: rgb(185, 185, 185);
+cursor: pointer;
+}
+
+</style>
+<div id="sidebar_wrapper" class="hide-sidebar_wrapper">
+    <div id="sidebar_back" class="hide-sidebar_back" onclick="toggle_menu()"></div>
+    <div id="sidebar" class="hide-sidebar" onclick="event.stopPropagation();">
+
+      <a class="sidebar-enlist" href="/enlist">Enlist your product</a>
+      <select class="sidebar-dropdown_category">
+        <option hidden selected>Select Category</option>
+        <option>Casual Books</option>
+        <option>Engineering Tools</option>
+        <option>Electronic Gadgets</option>
+      </select>
+
+    </div>
+</div>
+
+<script>
+    let sidebar_wrapper=document.querySelector('#sidebar_wrapper');
+    let sidebar_back=document.querySelector('#sidebar_back');
+    let sidebar=document.querySelector('#sidebar');
+
+    function toggle_menu(close_only=0) {
+
+        if(close_only==1){
+
+        }
+        var lines = document.querySelectorAll("#hamburger span");
+        if (lines[0].className == "") {
+        lines[0].className = "topHamline";
+        lines[3].className = "bottomHamline";
+
+        lines[1].className = "midtopHamline";
+        lines[2].className = "midbottomHamline";
+        } else
+        [].forEach.call(lines, function(l) {
+            l.className = "";
+        });
+        
+        sidebar_back.classList.toggle('hide-sidebar_back');
+        sidebar.classList.toggle('hide-sidebar');
+        sidebar_wrapper.classList.toggle('hide-sidebar_wrapper');
+        
+    }
+
+    window.addEventListener('resize', ()=> {
+        if(sidebar.className=="")
+          toggle_menu() 
+    });
+
+    document.querySelector('.sidebar-dropdown_category').addEventListener('change', (e) => {
+        window.location.href=`/category?v=${e.target.value}`;
+    });
+
+</script>
+      <div id="content">
+  
+        <div id="slideshow_wrapper">
+  
+          <div id="slideshow">
+            <div class="loader-icon" style="margin: auto;"></div>
+          </div>
+  
+          <button class='arrow_wrapper left_wrapper' onclick="slideshow_prev();reset_slideshow()">
+            <div class='arrow left'></div>
+          </button>
+  
+          <button class='arrow_wrapper right_wrapper' onclick="slideshow_next();reset_slideshow()">
+            <div class='arrow right'></div>
+          </button>
+  
+        </div>
+  
+        <div id="slideshow_counter">
+        </div>
+  
+        <div id='explorer'>
+          <button onclick="select_explorer(this.id,'#pick_wrapper')" id="pick_btn" class="active-explorer">Todays Pick</button>
+          <button onclick="select_explorer(this.id,'#sale_wrapper')" id="sale_btn">Ongoing Sale</button>
+        </div>
+
+        <div id="super_wrapper">
+
+          <div id="pick_wrapper" class="product_wrapper product_active">
+          </div>
+
+          <div id="sale_wrapper" class="product_wrapper">
+          </div>
+
+        </div>
+
+        <style>
+
+footer {
+  background-color: #282d32;
+  width: 100%;
+  color: white;
+  flex-wrap: wrap;
+  padding: 3rem 0 2rem 0;
+}
+
+footer span {
+  flex: 1;
+  text-align: center;
+
+}
+
+footer a {
+  text-decoration: none;
+  color: #a6a6a6;
+  font-weight: bold;
+  text-align: center;
+}
+
+footer a:hover {
+  color: white;
+}
+
+#socials {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 3rem;
+}
+
+#socials a {
+
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+@media (max-width:650px) {
+    #footer_items a {
+    font-size: 80%;
+  }
+
+  #footer_items a:nth-of-type(1) {
+    padding-left: 0.5rem;
+  }
+
+}
+</style>
+<footer>
+    <div id="footer_items" style="display:flex;justify-content:space-evenly;width:100%;margin:0 0 3rem 0">
+      <span><a href="/howto">How to Rent?</a></span>
+      <span><a href="/terms">Terms &#38; Conditions</a></span>
+      <span><a href="/feedback">Feedback &#38; suggestions</a></span>
+      <span><a href="/about">About Us</a></span>
+
+    </div>
+    <hr style="margin:0 3rem 2rem 3rem;border: 0;border-top: 1px solid #595959;">
+
+    <div id="socials">
+      <a class="fa fa-whatsapp" href="https://api.whatsapp.com/send?phone=919503233112"></a>
+      <a class="fa fa-instagram"></a>
+      <a class="fa fa-envelope" href="mailto: rentux.official@gmail.com"></a>
+      <a class="fa fa-linkedin" href="https://in.linkedin.com/company/rentuxofficial"></a>
+    </div>
+    <div style="font-size:0.7rem;width:100%;text-align:center;">Rentux 2021 © All Rights Reserved</div>
+</footer>
+
+      </div>
+    </div>
+  
+    <script>
+  let DATA={}
+  let slideshow=document.querySelector('#slideshow');
+  let slideshow_length=0;
+  let counter_items=null;
+  let slideshow_interval=null;
+
+
+  fetch(`https://rentuxsample.herokuapp.com/api/front`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"category":"_main"})
+  })
+  .then(d=>d.json()).then(data=>{
+
+    try{document.querySelector('.loader-icon').remove();}catch{}
+
+    let slideshow_str=''
+
+    for(let key=0;key<data['slideshow'].length;key++)
+      slideshow_str+=`<div class="item_wrapper"><div class="item"><img src="${data['items'][data['slideshow'][key]].img_link}">
+          <a class='info' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][data['slideshow'][key]].title}" from Rentux'>
+            <div class='title'>${data['items'][data['slideshow'][key]].title}</div>
+          </a>
+        </div></div>`;
+    
+    slideshow.innerHTML+=slideshow_str;
+
+    slideshow_length=document.querySelectorAll('.item_wrapper').length;
+
+    for(var i=0;i<slideshow_length;i++){
+      let temp = document.createElement("div");
+      temp.className = "counter_item";
+      document.querySelector('#slideshow_counter').appendChild(temp);
+    }
+    
+    counter_items=document.querySelectorAll('.counter_item');
+    document.querySelector('.counter_item').classList.add('counter_item-active');
+
+    let pick_str='';
+    let sale_str='';
+
+    for(let key in data['items']){
+
+      if(data['items'][key].price.weekly_sale==0&&data['items'][key].price.monthly_sale==0)
+        pick_str+=`<div class='product'>
+          <img src="${data['items'][key].img_link}">
+          <div class='info'>
+            <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].title}</a>
+            ${ data['items'][key].info==''?'':`<span class='sub-info'>${data['items'][key].info}</span>`}
+            ${ data['items'][key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data['items'][key].originalcost}</span>`}
+            <span class='sub-price'>
+              ${ data['items'][key].price.monthly > 0?`<div class='monthly'> ${data['items'][key].price.monthly} / month</div>`:''}
+              ${ data['items'][key].price.weekly > 0?`<div class='weekly'> ${data['items'][key].price.weekly} / week</div>`:''}
+            </span>
+            <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].outofstock==1?'Out of stock':'Book Now'}</a>
+          </div>         
+        </div>`
+      else
+        sale_str+=`<div class='product'>
+          <img src="${data['items'][key].img_link}">
+          <div class='info'>
+
+            <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].title}</a>
+            ${ data['items'][key].info==''?'':`<span class='sub-info'>${data['items'][key].info}</span>`}
+            ${ data['items'][key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data['items'][key].originalcost}</span>`}
+
+            <span class='sub-price'>
+              ${data['items'][key].price.monthly_sale > data['items'][key].price.monthly > 0 ?`<s> ₹${data['items'][key].price.monthly_sale} </s> <div class='monthly' style="display:inline;margin-left:0.3rem">${data['items'][key].price.monthly} / month</div><span class="discount">${Math.floor(100-data['items'][key].price.monthly/data['items'][key].price.monthly_sale *100)}%&#160;off</span><br>`:''} 
+              ${data['items'][key].price.weekly_sale > data['items'][key].price.weekly > 0 ?`<s> ₹${data['items'][key].price.weekly_sale} </s> <div class='weekly' style="display:inline;margin-left:0.3rem">${data['items'][key].price.weekly} / week</div><span class="discount">${Math.floor(100-data['items'][key].price.weekly/data['items'][key].price.weekly_sale *100)}%&#160;off</span>`:''}
+            </span>
+            <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].outofstock==1?'Out of stock':'Book Now'}</a>
+          </div>         
+        </div>`
+    }
+
+    document.querySelector('#pick_wrapper').innerHTML+=pick_str;
+    document.querySelector('#sale_wrapper').innerHTML+=sale_str;
+
+    slideshow_interval= setInterval(update_slideshow, 7000);
+
+    window.addEventListener('resize', ()=> {
+      counter_items[current_index].classList.remove('counter_item-active');
+      
+      current_index=0;
+      direction=1;
+      slideshow.scrollTo({
+        top: 0,
+        left: slideshow.offsetWidth * current_index,
+        behavior: 'instant'
+      });
+      
+      counter_items[current_index].classList.add('counter_item-active');
+  });
+  
+  })
+  .catch(()=>{
+    document.querySelector('.loader-icon').remove();
+    let err=document.createElement('div');
+    err.id='err';
+    err.innerText ="Unable to connect to server, Try again later : /";
+    document.querySelector('#slideshow').appendChild(err);
+
+  })
+  
+  let current_index=0;
+  let direction=1;
+  
+  function slideshow_prev(){
+  
+  if(current_index==0)
+      return 1;
+    
+  counter_items[current_index].classList.remove('counter_item-active');
+  
+  current_index--;
+  
+  slideshow.scrollTo({
+        top: 0,
+        left: slideshow.offsetWidth * current_index,
+        behavior: 'smooth'
+    });
+    
+  counter_items[current_index].classList.add('counter_item-active');
+  
+  return 0;
+  }
+  
+  function slideshow_next(){
+  
+  if(current_index==slideshow_length-1)
+      return 0;
+  
+  counter_items[current_index].classList.remove('counter_item-active');
+  
+  current_index++;
+  
+  slideshow.scrollTo({
+      top: 0,
+      left: slideshow.offsetWidth * current_index,
+      behavior: 'smooth'
+    });
+  
+  counter_items[current_index].classList.add('counter_item-active');
+  
+  return 1;
+  }
+  
+  function reset_slideshow(){
+      clearInterval(slideshow_interval);
+      slideshow_interval= setInterval(update_slideshow, 5000);
+  }
+  
+  const update_slideshow=()=>{
+    if(direction==1)
+      direction=slideshow_next();
+    else
+      direction=slideshow_prev();
+  }
+  
+  function select_explorer(its_id,by_id){
+
+    document.querySelector('.product_active').classList.remove('product_active');
+    document.querySelector(by_id).classList.add('product_active')
+
+    document.querySelector('.active-explorer').classList.remove('active-explorer');
+    document.querySelector(`#${its_id}`).classList.add('active-explorer');
+  }
+
+</script>
+      
+  </body>
+  
+</html>

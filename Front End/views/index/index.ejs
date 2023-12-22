@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentux - Renting is the new buying</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%-include('index_style.ejs')%>
+
+  </head>
+  
+  <body>
+    <!-- Front-End Designed by Manas Ravindra Makde-->
+    <%-include('../_common/header/header.ejs')%>
+  
+    <div id="rest">
+      <%-include('../_common/sidebar/sidebar.ejs')%>
+      <div id="content">
+  
+        <div id="slideshow_wrapper">
+  
+          <div id="slideshow">
+            <div class="loader-icon" style="margin: auto;"></div>
+          </div>
+  
+          <button class='arrow_wrapper left_wrapper' onclick="slideshow_prev();reset_slideshow()">
+            <div class='arrow left'></div>
+          </button>
+  
+          <button class='arrow_wrapper right_wrapper' onclick="slideshow_next();reset_slideshow()">
+            <div class='arrow right'></div>
+          </button>
+  
+        </div>
+  
+        <div id="slideshow_counter">
+        </div>
+  
+        <div id='explorer'>
+          <button onclick="select_explorer(this.id,'#pick_wrapper')" id="pick_btn" class="active-explorer">Todays Pick</button>
+          <button onclick="select_explorer(this.id,'#sale_wrapper')" id="sale_btn">Ongoing Sale</button>
+        </div>
+
+        <div id="super_wrapper">
+
+          <div id="pick_wrapper" class="product_wrapper product_active">
+          </div>
+
+          <div id="sale_wrapper" class="product_wrapper">
+          </div>
+
+        </div>
+
+        <%-include('../_common/footer/footer.ejs')%>
+
+      </div>
+    </div>
+  
+    <%-include('index_script.ejs')%>
+      
+  </body>
+  
+</html>

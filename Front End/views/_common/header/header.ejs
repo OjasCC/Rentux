@@ -1,0 +1,31 @@
+<%-include('./header_style.ejs')%>
+<header>
+    <a class='icon_wrapper' href='/'>
+      <img id="icon" src="https://i.ibb.co/Pm4PpTn/RentuX-X.png">
+      <h1> Rentux</h1>
+    </a>
+
+    <span id="search_wrapper">
+      <div id="search_back" class="fa fa-search fa-lg"></div>
+      <div id="search_btn" class="fa fa-search fa-lg search_active" onclick="Search()"></div>
+      <input id="search_bar" type="text" placeholder="Search...">
+    </span>
+
+    <select id="dropdown_category">
+      <option hidden selected>Select Category</option>
+      <option>Casual Books</option>
+      <option>Engineering Tools</option>
+      <option>Electronic Gadgets</option>
+    </select>
+
+    <!-- <a class="login" href="/login">Log In</a> -->
+    <a class="enlist" href="/enlist">Enlist your product</a>
+
+    <div id="hamburger" onclick="toggle_menu()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+</header>
+<%-include('./header_script.ejs')%>

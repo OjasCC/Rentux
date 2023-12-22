@@ -1,0 +1,17 @@
+<script>
+
+    let search_bar=document.querySelector('#search_bar');
+    let search_wrapper=document.querySelector('#search_wrapper');
+
+    function Search(){
+
+        search_bar.disabled = true;
+        document.querySelector('#search_btn').classList.remove('search_active');
+        document.querySelector('#search_wrapper').classList.add('search_wrapper_disabled');
+
+    }
+
+    document.querySelector('#dropdown_category').addEventListener('change', (e) => {
+        window.location.href=`/category?v=${e.target.value}`;
+    });
+</script>

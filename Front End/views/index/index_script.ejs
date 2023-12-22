@@ -1,0 +1,172 @@
+<script>
+  let DATA={}
+  let slideshow=document.querySelector('#slideshow');
+  let slideshow_length=0;
+  let counter_items=null;
+  let slideshow_interval=null;
+
+
+  fetch(`<%= process.env.BACKEND %>/front`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"category":"_main"})
+  })
+  .then(d=>d.json()).then(data=>{
+
+    try{document.querySelector('.loader-icon').remove();}catch{}
+
+    let slideshow_str=''
+
+    for(let key=0;key<data['slideshow'].length;key++)
+      slideshow_str+=`<div class="item_wrapper"><div class="item"><img src="${data['items'][data['slideshow'][key]].img_link}">
+          <a class='info' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][data['slideshow'][key]].title}" from Rentux'>
+            <div class='title'>${data['items'][data['slideshow'][key]].title}</div>
+          </a>
+        </div></div>`;
+    
+    slideshow.innerHTML+=slideshow_str;
+
+    slideshow_length=document.querySelectorAll('.item_wrapper').length;
+
+    for(var i=0;i<slideshow_length;i++){
+      let temp = document.createElement("div");
+      temp.className = "counter_item";
+      document.querySelector('#slideshow_counter').appendChild(temp);
+    }
+    
+    counter_items=document.querySelectorAll('.counter_item');
+    document.querySelector('.counter_item').classList.add('counter_item-active');
+
+    let pick_str='';
+    let sale_str='';
+
+    for(let key in data['items']){
+
+      if(data['items'][key].price.weekly_sale==0&&data['items'][key].price.monthly_sale==0)
+        pick_str+=`<div class='product'>
+          <img src="${data['items'][key].img_link}">
+          <div class='info'>
+            <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].title}</a>
+            ${ data['items'][key].info==''?'':`<span class='sub-info'>${data['items'][key].info}</span>`}
+            ${ data['items'][key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data['items'][key].originalcost}</span>`}
+            <span class='sub-price'>
+              ${ data['items'][key].price.monthly > 0?`<div class='monthly'> ${data['items'][key].price.monthly} / month</div>`:''}
+              ${ data['items'][key].price.weekly > 0?`<div class='weekly'> ${data['items'][key].price.weekly} / week</div>`:''}
+            </span>
+            <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].outofstock==1?'Out of stock':'Book Now'}</a>
+          </div>         
+        </div>`
+      else
+        sale_str+=`<div class='product'>
+          <img src="${data['items'][key].img_link}">
+          <div class='info'>
+
+            <a class='title' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].title}</a>
+            ${ data['items'][key].info==''?'':`<span class='sub-info'>${data['items'][key].info}</span>`}
+            ${ data['items'][key].originalcost==''?'':`<span class='sub-info'>Original Cost: Rs ${data['items'][key].originalcost}</span>`}
+
+            <span class='sub-price'>
+              ${data['items'][key].price.monthly_sale > data['items'][key].price.monthly > 0 ?`<s> ₹${data['items'][key].price.monthly_sale} </s> <div class='monthly' style="display:inline;margin-left:0.3rem">${data['items'][key].price.monthly} / month</div><span class="discount">${Math.floor(100-data['items'][key].price.monthly/data['items'][key].price.monthly_sale *100)}%&#160;off</span><br>`:''} 
+              ${data['items'][key].price.weekly_sale > data['items'][key].price.weekly > 0 ?`<s> ₹${data['items'][key].price.weekly_sale} </s> <div class='weekly' style="display:inline;margin-left:0.3rem">${data['items'][key].price.weekly} / week</div><span class="discount">${Math.floor(100-data['items'][key].price.weekly/data['items'][key].price.weekly_sale *100)}%&#160;off</span>`:''}
+            </span>
+            <a class='product-renting' href='https://api.whatsapp.com/send?phone=919503233112&text=Hello, I would like to book the item "${data['items'][key].title}" from Rentux'>${data['items'][key].outofstock==1?'Out of stock':'Book Now'}</a>
+          </div>         
+        </div>`
+    }
+
+    document.querySelector('#pick_wrapper').innerHTML+=pick_str;
+    document.querySelector('#sale_wrapper').innerHTML+=sale_str;
+
+    slideshow_interval= setInterval(update_slideshow, 7000);
+
+    window.addEventListener('resize', ()=> {
+      counter_items[current_index].classList.remove('counter_item-active');
+      
+      current_index=0;
+      direction=1;
+      slideshow.scrollTo({
+        top: 0,
+        left: slideshow.offsetWidth * current_index,
+        behavior: 'instant'
+      });
+      
+      counter_items[current_index].classList.add('counter_item-active');
+  });
+  
+  })
+  .catch(()=>{
+    document.querySelector('.loader-icon').remove();
+    let err=document.createElement('div');
+    err.id='err';
+    err.innerText ="Unable to connect to server, Try again later : /";
+    document.querySelector('#slideshow').appendChild(err);
+
+  })
+  
+  let current_index=0;
+  let direction=1;
+  
+  function slideshow_prev(){
+  
+  if(current_index==0)
+      return 1;
+    
+  counter_items[current_index].classList.remove('counter_item-active');
+  
+  current_index--;
+  
+  slideshow.scrollTo({
+        top: 0,
+        left: slideshow.offsetWidth * current_index,
+        behavior: 'smooth'
+    });
+    
+  counter_items[current_index].classList.add('counter_item-active');
+  
+  return 0;
+  }
+  
+  function slideshow_next(){
+  
+  if(current_index==slideshow_length-1)
+      return 0;
+  
+  counter_items[current_index].classList.remove('counter_item-active');
+  
+  current_index++;
+  
+  slideshow.scrollTo({
+      top: 0,
+      left: slideshow.offsetWidth * current_index,
+      behavior: 'smooth'
+    });
+  
+  counter_items[current_index].classList.add('counter_item-active');
+  
+  return 1;
+  }
+  
+  function reset_slideshow(){
+      clearInterval(slideshow_interval);
+      slideshow_interval= setInterval(update_slideshow, 5000);
+  }
+  
+  const update_slideshow=()=>{
+    if(direction==1)
+      direction=slideshow_next();
+    else
+      direction=slideshow_prev();
+  }
+  
+  function select_explorer(its_id,by_id){
+
+    document.querySelector('.product_active').classList.remove('product_active');
+    document.querySelector(by_id).classList.add('product_active')
+
+    document.querySelector('.active-explorer').classList.remove('active-explorer');
+    document.querySelector(`#${its_id}`).classList.add('active-explorer');
+  }
+
+</script>

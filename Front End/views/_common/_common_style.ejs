@@ -1,0 +1,275 @@
+<style>
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: Sans-serif;
+  overflow-x: hidden;
+}
+
+#rest {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#content {
+  z-index: 0;
+  grid-row: 1;
+  grid-column: 1;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.loader-icon {
+  margin: auto;
+  border: 7px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+#super_wrapper{
+  width:100%;
+  background-image: linear-gradient(to bottom,#e4e3e3,#f8f8f8);
+}
+
+.title{
+  font-size: x-large;
+  font-weight:700;
+  text-align:center;
+  word-break:keep-all;
+  display: -moz-box; 
+  -moz-line-clamp: 3;
+  -moz-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-decoration: none;
+  color:#3183bd;
+}
+
+.info{
+  flex:1;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  overflow-wrap: break-word; /* breaks long words */
+  min-width: 0; /* necessary for flexbox */
+  text-decoration: none;
+  padding:0 1rem;
+}
+
+s{
+  opacity: 0.3;
+  text-decoration-thickness: 2px;
+}
+
+.discount{
+  font-size: small;
+  background-color: #3183bd;
+  color:white;
+  padding: 0.1rem 0.3rem;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+}
+
+.product_active{
+  min-height: 15rem;
+  height:auto !important;
+  position: relative !important;
+  visibility: visible !important;
+  overflow:visible !important;
+  z-index: 1 !important;
+}
+
+.product_wrapper {
+  background-color: white;
+  margin:0 auto;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding:3% 0 5rem 0;
+
+  height:0;
+  position: absolute;
+  visibility: hidden;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.product {
+  margin-top: 2rem;
+  width: 40%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+  'image info';
+  grid-template-columns: 50% 50%;
+  min-height: 15rem;
+
+}
+
+.product img {
+  width:100%;
+  margin: auto 0;
+  grid-area: image;
+}
+
+.product .info{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  padding:0 10%;
+}
+
+.product .title{
+  border-bottom:1rem solid #0000;
+  box-shadow:0 1px 0 #dadfe3; /* your border */
+}
+
+.product .title:hover{
+  color:#36b0cf;
+}
+
+.sub-info{
+  font-size:medium;
+  /* word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
+  overflow: hidden;
+  white-space: pre-line;
+  text-align: center;
+  /* margin: 1rem 0; */
+
+}
+
+.sub-price{
+  font-size: large;
+  font-weight: bold;
+  margin:0 auto;
+  text-align: center;
+  word-wrap:normal;
+}
+
+.sub-price div{
+    word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sub-price .monthly::before{
+  content: '₹';
+}
+
+.sub-price .weekly::before{
+  content: '₹';
+} 
+
+.product-renting{
+  border:none;
+  background-image: linear-gradient(to bottom right,#3183bd,#92caf1) !important;  
+  color:white;
+  padding:5% 2%;
+  width:7rem;
+  text-align: center;
+  font-weight: bold;
+  border-radius:5rem;
+  text-decoration: none;
+  user-select: none;
+  margin: 0 auto 0.3rem auto;
+  cursor:pointer;
+}
+
+.product-renting:hover{
+opacity: 0.7;
+}
+
+ul{
+  margin:0 3rem;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width:1300px) {
+
+.product {
+  width: 45%;
+  font-size: small;
+}
+.product-title{
+  font-size: large;
+}
+}
+
+@media (max-width:1030px) {
+
+.product .title{
+  font-size:medium ;
+}
+
+.product_wrapper {
+  width: 100%;
+}
+}
+
+@media (max-width:880px) {
+
+.product {
+ width:90%;
+}
+
+}
+
+@media (max-width:650px) {
+
+  /* .title{
+    font-size: medium !important;
+  } */
+
+  .product {
+  width:95%;
+  }
+
+  .product .title{
+    padding-top: 0.5rem;
+  }
+
+  .info *{
+    font-size: small;
+  }
+
+  .discount{
+    display: block;
+    text-align: center;
+    margin: 3% 0 5% 0;
+    font-size: smaller;
+  }
+
+}
+
+
+</style>

@@ -1,0 +1,240 @@
+<%-include('../_common/_common_style.ejs')%>
+<style>
+
+#slideshow_wrapper {
+  height: 30rem;
+  width: 100%;
+  background-color: #36b0cf;
+  position: relative;
+}
+
+#slideshow {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow:hidden;
+
+  color:white;
+
+  /* CURRENT way. */
+  scroll-snap-type: x mandatory;
+}
+
+#slideshow::-webkit-scrollbar {
+  display: none;
+}
+
+#err{
+  margin: auto;
+}
+
+.item_wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  width: 45rem;
+  height: 90%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+}
+
+.item .info:hover .title{
+  color:#36b0cf !important;
+}
+
+.active_item {
+  flex: 1;
+}
+
+.item img {
+  height: 100%;
+  user-select: none;
+}
+
+.arrow_wrapper {
+  border: 0;
+  position: absolute;
+  height: 4rem;
+  width: 3rem;
+  background-color: white;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.1);
+
+}
+
+.arrow_wrapper:hover {
+  background-color: #cfcfcf;
+}
+
+.left_wrapper {
+
+  transform: translate(0, -50%) !important;
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.right_wrapper {
+  right: 0%;
+  transform: translate(0%, -50%) !important;
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+
+
+.arrow {
+  border: solid black;
+  width: 1rem;
+  height: 1rem;
+}
+
+.left {
+  border-width: 0 0 0.5rem 0.5rem;
+  transform: rotate(45deg);
+}
+
+.right {
+  border-width: 0.5rem 0.5rem 0 0;
+  transform: rotate(45deg);
+}
+
+#slideshow_counter{
+  width: 100%;
+  height: 2rem;
+  background-color: #36b0cf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter_item{
+  height: 0.5rem;
+  width: 0.5rem;
+  border: 2px solid  white;
+  border-radius: 50%;
+  margin: 0 0.5rem;
+
+}
+
+.counter_item-active {
+  background-color: white;
+}
+
+#explorer {
+  height: 3rem;
+  width: 100%;
+  background-color: #e4e3e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5rem #3183bd solid;
+}
+
+#explorer button {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  font-size: medium;
+  color: white !important;
+  background-color: #3183bd !important;
+  opacity: 0.6;
+  box-sizing: border-box;
+}
+
+#explorer button:nth-of-type(1){
+  margin-right:20%;
+}
+
+.active-explorer {
+  opacity: 1 !important;
+}
+
+#explorer button:hover {
+  border-color: #9c9c9c;
+}
+
+
+@media (max-width:1030px) {
+  .item {
+    height:80%;
+    width: 85%;
+  }
+}
+
+@media (max-width:880px) {
+  #slideshow_wrapper {
+    height: 20rem;
+  }
+
+  .item {
+    width:80%;
+  }
+
+  /* .login {
+    margin-left: 1rem;
+  } */
+
+}
+
+@media (max-width:650px) {
+
+  /* .login {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .sidebar-login {
+    position: relative;
+    visibility: visible;
+  } */
+
+  .arrow_wrapper{
+    height:100%;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    opacity: 0;
+  }
+  .arrow_wrapper:active{
+    opacity: 0.2;
+  }
+
+  .arrow_wrapper:hover{
+    background-color: rgba(0,0,0,0.25);
+  }
+
+  #slideshow_wrapper{
+    height:15rem;
+  }
+
+  #slideshow .item{
+  font-size: small;
+  }
+
+  #slideshow .renting{
+
+    width:55%;
+  }
+
+}
+
+</style>
+
+<!--https://jsfiddle.net/806knyx4/77/-->
+
+<!-- https://codesandbox.io/s/confident-water-xj6zb?file=/src/index.js -->

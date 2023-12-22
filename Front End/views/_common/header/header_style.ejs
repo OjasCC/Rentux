@@ -1,0 +1,246 @@
+<style>
+:root {
+  --hamline-height: 4px;
+  --ham-width: 2rem;
+  --ham-gap: 0.5rem;
+  --hamline-border: 1px;
+
+  --ham-padding: 1rem;
+
+
+  --search-radius: 0.5rem;
+  --transition-time: 0.5s;
+}
+
+
+header {
+  width: 100%;
+  height: 4rem;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+.icon_wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  margin: 0 1rem 0 0;
+}
+
+#icon {
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+}
+
+header h1 {
+  color: white;
+  margin: 0 0 0 1rem;
+}
+
+#search_wrapper {
+  height: 60%;
+  background-color: white;
+  flex: 1;
+  border-radius: var(--search-radius);
+  display: flex;
+  position: relative;
+  align-items: center;
+  /* overflow: hidden; */
+  flex-direction: row;
+}
+
+.search_wrapper_disabled {
+  opacity: 0.85;
+  transition: opacity 1s;
+}
+
+#search_back {
+  height: 100%;
+  display: inline-block;
+  border-radius: var(--search-radius);
+  padding: 0 0.7rem;
+  visibility: hidden;
+}
+
+#search_btn {
+  background-color: #3697cf;
+  height: 100%;
+  border-radius: var(--search-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  position: absolute;
+  cursor: default;
+  align-self: end;
+  right: 0;
+  transform: translate(5%, 0);
+  transition: right var(--transition-time), transform var(--transition-time);
+}
+
+.search_active {
+  transform: translate(100%, 0) !important;
+  cursor: pointer !important;
+  right: 100% !important;
+}
+
+.search_active:hover {
+  background-color: #266999 !important;
+}
+
+#search_bar {
+  border-radius: 0 var(--search-radius) var(--search-radius) 0;
+  outline: none;
+  font-size: 1rem;
+  height:100%;
+  border: none;
+  padding-left: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#search_bar:disabled {
+  background-color: white;
+}
+
+/*  DROPDOWN */
+#dropdown_category {
+  margin-left: 1rem;
+  width: 9.3rem;
+  height: 55%;
+  padding: 5px 5px 5px 20px;
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(https://img.icons8.com/color/30/000000/sort-right.png) 0% / 15% no-repeat #EEE;
+  outline: none;
+
+  background-color: transparent;
+  background-size: 13px;
+  text-overflow: ellipsis;
+  border: none;
+  color: #bebebe;
+  cursor: pointer;
+  direction: rtl;
+  text-align: left;
+}
+
+#dropdown_category:hover{
+  color:white;
+}
+
+#dropdown_category option {
+  font-size: 90%;
+  color: black;
+  direction: ltr;
+}
+
+#dropdown_category:active {
+  background: url(https://img.icons8.com/color/64/000000/sort-down.png) 0% / 15% no-repeat !important;
+  background-size: 13px !important;
+}
+
+#dropdown_category:hover {
+  cursor: pointer;
+}
+
+/*  ---   */
+
+
+.enlist {
+  text-decoration: none;
+  display: flex;
+  height: 60%;
+  color: white !important;
+  background-color: #3183bd;
+  border-radius: 0.3rem;
+  padding: 0 0.5rem;
+  margin: 0 1rem 0 1rem;
+  align-items: center;
+}
+
+.enlist:hover {
+  background-color: #266999;
+  cursor: pointer;
+}
+
+/*  HAMBURGER */
+
+#hamburger {
+  visibility: hidden;
+  position: absolute;
+  height: auto;
+  width: var(--ham-width);
+  cursor: pointer;
+  padding: var(--ham-padding);
+  padding-top: calc(var(--ham-padding) + var(--ham-gap));
+}
+
+#hamburger span {
+  margin: auto;
+  display: block;
+  position: relative;
+  height: var(--hamline-height);
+  background-color: white;
+  margin-bottom: var(--ham-gap);
+  border-radius: var(--hamline-border);
+  transition: transform 0.25s, width 0.25s ease-in-out;
+  width: var(--ham-width);
+}
+
+#hamburger span:nth-child(2) {
+  position: absolute;
+}
+
+#hamburger span:nth-child(1) {
+  top: 0;
+}
+
+#hamburger span:nth-child(4) {
+  bottom: 0;
+}
+
+.topHamline {
+  transform: translateY(calc(var(--ham-gap) + var(--hamline-height)));
+  width: 0 !important;
+  transition: transform 0.25s, width 0.25s !important;
+}
+
+.bottomHamline {
+  transform: translateY(calc(var(--ham-gap) * -1 + var(--hamline-height) * -1));
+  width: 0 !important;
+  transition: transform 0.25s, width 0.25s !important;
+}
+
+.midtopHamline {
+  transform: rotate(-45deg);
+  transition: transform 0.25s !important;
+}
+
+.midbottomHamline {
+  transform: rotate(45deg);
+  transition: transform 0.25s !important;
+}
+
+/* ---  */
+
+@media (max-width:880px) {
+  header h1,
+  .enlist,
+  #dropdown_category {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  #hamburger {
+    visibility: visible;
+    position: relative;
+  }
+
+}
+
+</style>

@@ -1,0 +1,17 @@
+<%-include('./sidebar_style.ejs')%>
+<div id="sidebar_wrapper" class="hide-sidebar_wrapper">
+    <div id="sidebar_back" class="hide-sidebar_back" onclick="toggle_menu()"></div>
+    <div id="sidebar" class="hide-sidebar" onclick="event.stopPropagation();">
+
+      <a class="sidebar-enlist" href="/enlist">Enlist your product</a>
+      <select class="sidebar-dropdown_category">
+        <option hidden selected>Select Category</option>
+        <option>Casual Books</option>
+        <option>Engineering Tools</option>
+        <option>Electronic Gadgets</option>
+      </select>
+
+    </div>
+</div>
+
+<%-include('./sidebar_script.ejs')%>

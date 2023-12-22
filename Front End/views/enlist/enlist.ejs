@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentux - Enlist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%-include('enlist_style.ejs')%>
+
+  </head>
+  
+  <body>
+
+    <%-include('../_common/header/header.ejs')%>
+
+    <div id="rest">
+      <%-include('../_common/sidebar/sidebar.ejs')%>
+      <div id="content">
+  
+        <div id="enlist-title-wrapper">
+          <h1 class="enlist-title">Enlist your product</h1>
+        </div>
+
+        <div id="super_wrapper">
+
+          <div id="pick_wrapper" class="product_wrapper product_active">
+            
+            <form style="margin-top: 3rem;" onsubmit="send();return false">
+              <fieldset id="form-field" style="border:none">
+                <div class="grided" style="margin-bottom:5rem;">
+                  <label>Full Name</label><input type="text" name="name" required>
+
+                  <label>Email</label><input type="email" name="email" required>
+
+                  <label>Phone number</label><input type="text" name="phno" required>
+
+                </div>
+
+                <div class="grided" style="margin-bottom:5rem;">
+                  <label>Product Name</label><input type="text" name="product" required>
+                  <label style="margin-right: 0.5rem;">Link of Image</label><input type="url" name="image" placeholder="imgbb.com recommended">
+
+                  <span>
+                    <label style="margin-right: 0.5rem;">Link to Original product</label>
+                    <small><a href="https://www.amazon.in/Think-Grow-Rich-Napoleon-Hill/dp/8192910911" target="_blank">(E.g.)</a></small>
+                  </span><input type="url" name="similar" placeholder="optional">
+                  
+                  <select id="der" onchange="check_select(event)">
+                    <option>Author</option>
+                    <option>Brand</option>
+                    <option>None</option>
+                  </select><input type="text" name="descrip" required>
+                </div>
+
+                <div class="grided" style="margin-bottom:5rem;">
+
+                  <label>Original Cost :</label><input type="number" name="cost" placeholder="in INR" required>
+
+                  <label>How long have you owned the product?</label><input type="number" name="age" placeholder="in months">
+                
+                </div>
+
+                <label>Additional specifications:</label>
+                <textarea name="additional" placeholder='(optional)&#10;&#10;"The book is missing page 43",&#10;&#10;"The item has a stain on the back"'></textarea>
+                    
+                <input type="submit" value="Submit" id="sendbtn" >
+              </fieldset>
+            </form>
+
+          </div>
+
+        </div>
+
+        <%-include('../_common/footer/footer.ejs')%>
+
+      </div>
+    </div> 
+    <%-include('enlist_script.ejs')%>
+  </body>
+  
+</html>

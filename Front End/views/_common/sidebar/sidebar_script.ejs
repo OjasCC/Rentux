@@ -1,0 +1,38 @@
+<script>
+    let sidebar_wrapper=document.querySelector('#sidebar_wrapper');
+    let sidebar_back=document.querySelector('#sidebar_back');
+    let sidebar=document.querySelector('#sidebar');
+
+    function toggle_menu(close_only=0) {
+
+        if(close_only==1){
+
+        }
+        var lines = document.querySelectorAll("#hamburger span");
+        if (lines[0].className == "") {
+        lines[0].className = "topHamline";
+        lines[3].className = "bottomHamline";
+
+        lines[1].className = "midtopHamline";
+        lines[2].className = "midbottomHamline";
+        } else
+        [].forEach.call(lines, function(l) {
+            l.className = "";
+        });
+        
+        sidebar_back.classList.toggle('hide-sidebar_back');
+        sidebar.classList.toggle('hide-sidebar');
+        sidebar_wrapper.classList.toggle('hide-sidebar_wrapper');
+        
+    }
+
+    window.addEventListener('resize', ()=> {
+        if(sidebar.className=="")
+          toggle_menu() 
+    });
+
+    document.querySelector('.sidebar-dropdown_category').addEventListener('change', (e) => {
+        window.location.href=`/category?v=${e.target.value}`;
+    });
+
+</script>

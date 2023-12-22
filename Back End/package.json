@@ -1,0 +1,22 @@
+{
+  "name": "rentux",
+  "private": true,
+  "scripts": {
+    "dev": "node starting.js && next dev",
+    "build": "node starting.js && next build",
+    "start": "node starting.js && next start -p $PORT",
+    "heroku-postbuild": "npm run build",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "next": "12.0.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "simple-git": "^2.48.0"
+  },
+  "devDependencies": {
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7"
+  }
+}

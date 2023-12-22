@@ -52,17 +52,3 @@ Also Netlifys CDNs are much faster and provides decenteralization i.e. If heroku
 <br>
 
 The site currently does not store that much data and using a database would be overkill **but** I have left the option of a database like `MongoDB` (or whichever you prefer) to be integrated if required in the future.
-
-<hr>
-
-## **References**
-
-I've used [The Net Ninja](https://www.youtube.com/c/TheNetNinja) channel as a reference 
-
-so if you are unfimilar with `node.js`, `react.js`, etc use the channel as a guide or reminder.
-
-<br>
-
->**Note to future developer(s):**<br><br>
-> Rentux has a lot of potential and if executed properly it will definitely be in the big leagues.<br> So keep that in mind as you develop their website & have fun : )<br><br>
->-by Manas Ravindra Makde
